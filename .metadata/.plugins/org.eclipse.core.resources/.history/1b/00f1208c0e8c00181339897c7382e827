@@ -1,0 +1,18 @@
+package com.zycus;
+
+public class TestWrapper {
+
+	public static void main(String[] args) {
+		Integer n = 100;
+
+		System.out.println(n);
+		
+		int x = n;
+		System.out.println(x);
+
+		System.out.println(Integer.toHexString(255));
+		System.out.println(Integer.toOctalString(255));
+		System.out.println(Integer.toBinaryString(255));
+	}
+
+}

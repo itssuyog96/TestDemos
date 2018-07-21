@@ -1,0 +1,10 @@
+package com.zycus;
+
+public class Computer {
+	private Display primaryDisplay;
+	private Storage primaryStorage;
+
+	public static void main(String args[]){
+		C
+	}
+}

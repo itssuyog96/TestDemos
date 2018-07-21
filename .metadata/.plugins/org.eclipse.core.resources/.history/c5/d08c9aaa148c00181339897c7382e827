@@ -1,0 +1,25 @@
+package com.zycus;
+
+public class SavingAccount extends Account implements BankTransaction {
+
+	public static final WITHDRAWAL_LIMIT = 10000;
+	
+	
+	public SavingAccount(long accNo, int branchCode, double balance) {
+		super(accNo, branchCode, balance);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void withdraw(double amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deposit(double amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

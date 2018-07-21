@@ -1,0 +1,24 @@
+package com.zycus;
+
+public class TestWrapper {
+
+	public static void main(String[] args) {
+
+		// Boxing
+		Integer n = new Integer(100);
+		// Auto-boxing
+		n = 500;
+		System.out.println(n);
+
+		// Unboxing
+		int x = n.intValue();
+		// Auto-unboxing
+		x = n;
+		System.out.println(x);
+
+		System.out.println(Integer.toHexString(255));
+		System.out.println(Integer.toOctalString(255));
+		System.out.println(Integer.toBinaryString(255));
+	}
+
+}

@@ -1,0 +1,22 @@
+package demo1;
+
+import static java.lang.System.err;
+import static java.lang.System.out;
+
+public class TestException3 {
+
+	public static void main(String[] args) {
+		Calculator3 calc = new Calculator3();
+		int x = calc.calcDiv(10, 0);
+		out.println("Result: " + x);
+	}
+
+}
+
+class Calculator3 {
+	public int calcDiv(int n1, int n2) {
+		if(n==0){
+			
+		}
+	}
+}

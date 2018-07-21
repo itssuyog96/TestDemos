@@ -1,0 +1,9 @@
+package com.zycus;
+
+public class Computer {
+	private Display primaryDisplay;
+	private Storage primaryStorage;
+	
+	
+
+}

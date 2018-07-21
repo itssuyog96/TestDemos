@@ -1,0 +1,17 @@
+package com.zycus;
+
+public class SalaryAccount extends Exception implements BankTransaction {
+
+	@Override
+	public void withdraw(double amt) throws TransactionDeclinedException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deposit(double amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

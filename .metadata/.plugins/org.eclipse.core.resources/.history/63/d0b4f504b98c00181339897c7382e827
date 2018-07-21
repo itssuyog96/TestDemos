@@ -1,0 +1,12 @@
+package com.zycus.app;
+
+public class Main {
+
+	public static void main(String[] args) {
+		AppLogic logic = new AppLogic();
+		
+		Employee
+
+	}
+
+}

@@ -1,0 +1,20 @@
+package com.zycus;
+
+public class SalaryAccount extends Account implements BankTransaction {
+
+	public SalaryAccount(long accNo, int branchCode, double balance) {
+		super(accNo, branchCode, balance);
+	}
+
+	@Override
+	public void withdraw(double amt) throws TransactionDeclinedException {
+
+	}
+
+	@Override
+	public void deposit(double amt) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

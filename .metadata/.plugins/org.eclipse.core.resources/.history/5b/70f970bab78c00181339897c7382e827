@@ -1,0 +1,35 @@
+package com.zycus.app;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import com.zycus.models.Employee;
+
+public class AppLogic {
+	private static final String DATA_PATH = "D:\\data\\emps.txt";
+	private static final String sep = ", ";
+
+	public Employee[] read() {
+		try (BufferedReader br = new BufferedReader(new FileReader(DATA_PATH))) {
+			Employee[] temp = new Employee[100];
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void write(Employee[] emps) {
+
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(DATA_PATH))) {
+			for (Employee e : emps) {
+				bw.write(e.getFirstName() + sep + e.getLastName() + sep + e.getAge() + sep + e.getDesignation());
+				bw.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

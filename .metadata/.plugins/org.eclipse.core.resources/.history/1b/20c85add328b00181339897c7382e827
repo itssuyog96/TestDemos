@@ -1,0 +1,14 @@
+import java.util.Date;
+
+public class App2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Account account = new DepositAccount(12312, 123123, 213123, new Date(), 20000);
+		System.out.println(account);
+		
+		LoanAccount acc2 = new LoanAccount(12312, 123123, 213123, new Date(), 1500);
+		System.out.println(acc2);
+	}
+
+}

@@ -1,0 +1,17 @@
+import java.util.Date;
+
+public class DepositAccount extends Account{
+	private int totalDeposit;
+
+	public DepositAccount(int accountNo, int customerId, int branchCode, Date openingDate, int totalDeposit) {
+		super(accountNo, customerId, branchCode, openingDate);
+		this.totalDeposit = totalDeposit;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " DepositAccount [totalDeposit=" + totalDeposit + "]";
+	}
+	
+	
+}

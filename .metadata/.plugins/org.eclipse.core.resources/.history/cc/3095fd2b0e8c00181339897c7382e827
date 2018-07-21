@@ -1,0 +1,11 @@
+package com.zycus;
+
+public class TestWrapper {
+
+	public static void main(String[] args) {
+		Integer n = new Integer(100);
+		
+
+	}
+
+}

@@ -1,0 +1,15 @@
+package com.zycus.app;
+
+import com.zycus.models.Employee;
+
+public class AppLogic {
+	private static final String DATA_PATH="D:\\data\\emps.txt";
+	
+	public Employee[] read(){
+		
+	}
+	
+	public void write(Employee[] emp){
+		
+	}
+}
