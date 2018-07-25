@@ -1,0 +1,54 @@
+Cards <Abstract> CardNo, HolderName, PAN, Contact
+	DebitCards		CreditCards
+	MaxWithdrawals	interestRate
+	accountLinked		creditLimit
+				pointAcumulated
+
+CardFactory Class
+1. Add new Card (generate a Unique Card No)
+	issueNewCard(CardType.DEBIT)
+	public Class issueNewCard(CardType.CREDIT)
+
+CardStore class
+1. loadCards() : Must be first method called from Main()
+2. storeCards(): Must be called when application terminates
+3. CardList[] Array of Cards (Max 100)
+	Use loadCards() to copy all card information from data.dat
+	Use storeCards() to overwrite changes to data.dat
+4. add(Card) Should be called immediately after issueNewCard
+5. Get Card by CardNo
+	Card seachByCardNo(int)
+6. List all cards by HolderName (Case Insensitive)
+	Card[] findByHolderName(Strig name)
+
+		
+App class
+1. Menu(): Display a menu
+	A: Add new card
+	F: find card by no
+	L: List cards by holder
+	Q: Quit Application
+2. addCard()
+	accept input from user
+	Call factory.issueNewCard();
+	store.add()
+3. findCard()
+	accept card no
+	Call store.searchByCardNo
+4. ListCards()
+	accept holdername
+	call factory.findByHolderName();
+5. Quit()
+	Ask for confirmation
+	Call store.storeCards()
+	Quit application
+6. Constructor
+	new CardStore()
+	store.loadCards();
+	CardFactory() - static
+7. main()
+	new App()
+	call Menu()
+
+
+File format : Object Stream

@@ -1,0 +1,11 @@
+Sorting collections:
+
+Sorting is allowed when element type is "Comparable"
+Collections.sort({comparable-list})
+
+Modify your element type class (Person)
+1. Implement "Comparable" interface
+2. Override "compareTo" method
+
+Invoke "Sort" method
+Collections.sort(people);s
