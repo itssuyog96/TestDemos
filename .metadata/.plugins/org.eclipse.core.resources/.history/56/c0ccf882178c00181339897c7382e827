@@ -1,9 +1,0 @@
-package com.zycus;
-
-public class TransactionDeclinedException extends Exception {
-
-	public TransactionDeclinedException(String arg0) {
-		super(arg0);
-	}
-
-}

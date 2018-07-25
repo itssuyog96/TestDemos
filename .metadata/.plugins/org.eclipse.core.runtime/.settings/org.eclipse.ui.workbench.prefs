@@ -1,4 +1,0 @@
-PLUGINS_NOT_ACTIVATED_ON_STARTUP=org.eclipse.m2e.discovery;
-SAVE_AUTOMATICALLY=true
-SAVE_AUTOMATICALLY_INTERVAL=10
-eclipse.preferences.version=1

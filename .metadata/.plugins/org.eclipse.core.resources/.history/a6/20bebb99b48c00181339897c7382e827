@@ -1,5 +1,0 @@
-package com.zycus.app;
-
-public class AppLogic {
-	private static final String DATA_PATH="D:\\data\\emps.txt"
-}
