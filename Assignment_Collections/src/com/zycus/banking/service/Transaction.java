@@ -1,5 +1,7 @@
 package com.zycus.banking.service;
 
+import static java.lang.System.err;
+
 import com.zycus.banking.util.Account;
 import com.zycus.banking.util.Branch;
 import com.zycus.banking.util.BranchSet;
@@ -19,15 +21,16 @@ public class Transaction implements TransactionInterface {
 
 	@Override
 	public boolean withdraw(int accountNo, float amount) {
-		Account account = this.getAccount(accountNo);
+		Account account = getAccount(accountNo);
 
 		if (checkAccount(account)) {
 			float tempBalance = account.getBalance() - amount;
 			if (tempBalance >= MIN_BALANCE) {
 				account.setBalance(tempBalance);
+				// out.println("Withdrew " + amount + " from AC no." + accountNo);
 				return true;
 			} else {
-				System.err.println("Insufficient balance.");
+				err.println("Insufficient balance.");
 			}
 		}
 
@@ -37,11 +40,12 @@ public class Transaction implements TransactionInterface {
 
 	@Override
 	public boolean deposit(int accountNo, float amount) {
-		Account account = this.getAccount(accountNo);
+		Account account = getAccount(accountNo);
 
 		if (checkAccount(account)) {
 			float tempBalance = account.getBalance() + amount;
 			account.setBalance(tempBalance);
+			// out.println("Deposited " + amount + " in AC no." + accountNo);
 			return true;
 		}
 
@@ -53,7 +57,7 @@ public class Transaction implements TransactionInterface {
 	public void transfer(int sourceAccountNumber, int destinationAccountNumber, float amount) {
 		if (withdraw(sourceAccountNumber, amount)) {
 			if (!deposit(destinationAccountNumber, amount)) {
-				System.err.println("Unable to deposit. Rolling back...");
+				err.println("Unable to deposit. Rolling back...");
 				deposit(sourceAccountNumber, amount);
 			}
 		}
@@ -64,11 +68,11 @@ public class Transaction implements TransactionInterface {
 			if (account.getAccountStatus() == status.ACTIVE) {
 				return true;
 			} else {
-				System.err.println("Account is closed.");
+				err.println("Account is closed.");
 				return false;
 			}
 		else
-			System.err.println("Account does not exist.");
+			err.println("Account does not exist.");
 		return false;
 	}
 

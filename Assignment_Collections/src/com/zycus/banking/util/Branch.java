@@ -8,27 +8,25 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Branch {
+public class Branch extends BranchParent {
+
 	private Map<Integer, Account> allAccounts = new HashMap<>();
-	private static int ACC_NO_GENERATOR = 1101;
-	private static int BRANCH_CODE_GEN = 910;
 
 	public Branch() {
 		BRANCH_CODE_GEN++;
 	}
 
 	public void openNewAccount(com.zycus.banking.util.accountType accountType, float balance, String accountHolder) {
-		Account account = new Account(ACC_NO_GENERATOR++, accountHolder, accountType, balance);
+		Account account = new Account(++ACC_NO_GENERATOR, accountHolder, accountType, balance);
 		account.setBranchCode(BRANCH_CODE_GEN);
-		allAccounts.put(ACC_NO_GENERATOR - 1, account);
+		allAccounts.put(account.getAccountNumber(), account);
+
 	}
 
 	public Account getAccount(int accountNo) {
-		try {
-			return allAccounts.get(accountNo);
-		} catch (NoSuchElementException e) {
-			return null;
-		}
+
+		return allAccounts.get(accountNo);
+
 	}
 
 	public void closeAccount(int accountNo) {
