@@ -1,0 +1,26 @@
+--DDL Query: Creating first table
+create table EMP(
+	empid numeric(4) primary key,
+	ename varchar(20),
+	sal numeric(10, 2)
+);
+
+create table DEPT(
+	deptid numeric(4) primary key,
+	dname varchar(20)
+);
+
+select * from emp;
+
+ALTER table EMP
+add deptid numeric(4);
+
+ALTER table EMP
+add constraint fk001 foreign key(deptid) references dept(deptid);
+
+--Creating a new field with constraint
+ALTER table dept
+add location char(3) constraint ch001 check (location in ('MUM', 'PUN','CHE', 'BLR'));
+
+drop table dept;
+drop table emp;

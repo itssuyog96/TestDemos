@@ -1,5 +1,6 @@
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.locks.ReadWriteLock;
 
 import com.zycus.Logger;
 
@@ -29,5 +30,7 @@ public class Main3 {
 		log1.stop();
 		log2.stop();
 	}
+
+	ReadWriteLock a;
 
 }
