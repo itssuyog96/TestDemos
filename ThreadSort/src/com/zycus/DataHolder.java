@@ -6,17 +6,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataHolder extends Sorter implements Runnable {
+public class DataHolder implements Runnable {
 	private List<Integer> list = new ArrayList<Integer>();
 	private String fileName;
 
-	public DataHolder(String fileName) {
+	private CounterLock obj;
+
+	public DataHolder(String fileName, CounterLock obj) {
 		this.fileName = fileName;
-		super.addListStatusToSort();
+		Sorter.addListStatusToSort();
+
+		obj.increment();
+		this.obj = obj;
+		// obj.()
 	}
 
 	@Override
 	public void run() {
+
+		/*
+		 * try { if ("test1.txt".equalsIgnoreCase(fileName)) Thread.sleep(15000); if
+		 * ("test2.txt".equalsIgnoreCase(fileName)) Thread.sleep(10000); if
+		 * ("test3.txt".equalsIgnoreCase(fileName)) Thread.sleep(5000); } catch
+		 * (InterruptedException e1) { // TODO Auto-generated catch block
+		 * e1.printStackTrace(); }
+		 */
+
 		try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -28,13 +43,19 @@ public class DataHolder extends Sorter implements Runnable {
 		}
 		list.sort((x, y) -> x.compareTo(y));
 
-		super.updateStatus();
+		Sorter.updateStatus();
 
-		super.addListToSort(list);
+		// super.addListToSort(list);
 
 		System.out.println("\n\n" + fileName);
 		for (int x : list) {
 			System.out.print(x + ",");
+		}
+
+		try {
+			obj.anotify();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 	}

@@ -8,15 +8,33 @@ import java.util.Random;
 public class Main {
 
 	public static void main(String[] args) {
-		// generateFile("test1.txt", 5000);
-		// generateFile("test2.txt", 3000);
+		// generateFile("test1.txt", 50);
+		// generateFile("test2.txt", 300);
 		// generateFile("test3.txt", 10000);
 
-		new Thread(new DataHolder("test1.txt")).run();
-		new Thread(new DataHolder("test2.txt")).run();
-		new Thread(new DataHolder("test3.txt")).run();
+		CounterLock obj = new CounterLock();
 
-		new Thread(new Sorter()).run();
+		Thread t3 = new Thread(new DataHolder("test3.txt", obj));
+
+		Thread t1 = new Thread(new DataHolder("test1.txt", obj));
+
+		Thread t2 = new Thread(new DataHolder("test2.txt", obj));
+
+		t3.start();
+		t1.start();
+		t2.start();
+
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		new Thread(new Sorter(obj)).start();
+
 	}
 
 	public static void generateFile(String fileName, int fileSize) {
