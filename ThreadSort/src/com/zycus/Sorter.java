@@ -12,11 +12,14 @@ public class Sorter implements Runnable {
 	private static boolean sorted = false;
 	private static int index = 0;
 	private static int listsIndex = 0;
+	private List<Thread> threadList;
 
 	private CounterLock obj;
 
-	Sorter(CounterLock obj) {
+	Sorter(CounterLock obj, List<Thread> threadList) {
 		this.obj = obj;
+		this.threadList = threadList;
+
 	}
 
 	protected static void addListStatusToSort() {
@@ -27,6 +30,15 @@ public class Sorter implements Runnable {
 	public void run() {
 
 		try {
+			for (Thread t : threadList) {
+				t.join();
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
 			obj.await();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -35,7 +47,7 @@ public class Sorter implements Runnable {
 		while (!sorted) {
 
 			if (check()) {
-				System.out.println("\nReady");
+				System.out.println("Ready");
 				// Ready to carry out final merge sort
 
 				// sort();

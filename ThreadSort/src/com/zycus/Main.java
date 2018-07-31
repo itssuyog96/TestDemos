@@ -3,6 +3,8 @@ package com.zycus;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -14,26 +16,46 @@ public class Main {
 
 		CounterLock obj = new CounterLock();
 
-		Thread t3 = new Thread(new DataHolder("test3.txt", obj));
+		List<Thread> threadList = new ArrayList<>();
+		int threadCount = 0;
 
-		Thread t1 = new Thread(new DataHolder("test1.txt", obj));
-
-		Thread t2 = new Thread(new DataHolder("test2.txt", obj));
-
-		t3.start();
-		t1.start();
-		t2.start();
-
-		try {
-			t1.join();
-			t2.join();
-			t3.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (int i = 0; i < 3; i++) {
+			threadList.add(new Thread(new DataHolder("test3.txt", obj)));
 		}
 
-		new Thread(new Sorter(obj)).start();
+		for (Thread t : threadList) {
+			t.start();
+		}
+
+		// for (Thread t : threadList) {
+		// try {
+		// t.join();
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+		//
+		// Thread t3 = new Thread(new DataHolder("test3.txt", obj));
+		//
+		// Thread t1 = new Thread(new DataHolder("test1.txt", obj));
+		//
+		// Thread t2 = new Thread(new DataHolder("test2.txt", obj));
+		//
+		// t3.start();
+		// t1.start();
+		// t2.start();
+		//
+		// try {
+		// t1.join();
+		// t2.join();
+		// t3.join();
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		new Thread(new Sorter(obj, threadList)).start();
 
 	}
 
