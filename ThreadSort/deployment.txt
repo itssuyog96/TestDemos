@@ -1,0 +1,10 @@
+Build and Pack Java Web Application
+WAR files
+    Archive file which contains your java web application.
+
+    In eclipse, right click on project -> select "Export"
+    and then select "WAR"
+
+    To Deploy
+    On Tomcat   copy it inside tomcat/webapps directory
+    On JBoss    copy it inside standalone/deployments

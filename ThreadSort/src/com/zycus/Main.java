@@ -20,40 +20,21 @@ public class Main {
 		int threadCount = 0;
 
 		for (int i = 0; i < 3; i++) {
-			threadList.add(new Thread(new DataHolder("test3.txt", obj)));
+			threadList.add(new Thread(new DataHolder("test" + (i + 1) + ".txt", obj)));
 		}
 
 		for (Thread t : threadList) {
 			t.start();
 		}
 
-		// for (Thread t : threadList) {
-		// try {
-		// t.join();
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		//
-		// Thread t3 = new Thread(new DataHolder("test3.txt", obj));
-		//
-		// Thread t1 = new Thread(new DataHolder("test1.txt", obj));
-		//
-		// Thread t2 = new Thread(new DataHolder("test2.txt", obj));
-		//
-		// t3.start();
-		// t1.start();
-		// t2.start();
-		//
-		// try {
-		// t1.join();
-		// t2.join();
-		// t3.join();
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		for (Thread t : threadList) {
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		new Thread(new Sorter(obj, threadList)).start();
 

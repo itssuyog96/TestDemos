@@ -29,14 +29,14 @@ public class Sorter implements Runnable {
 	@Override
 	public void run() {
 
-		try {
-			for (Thread t : threadList) {
-				t.join();
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// try {
+		// for (Thread t : threadList) {
+		// t.join();
+		// }
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
 		try {
 			obj.await();
@@ -44,24 +44,8 @@ public class Sorter implements Runnable {
 			// TODO: handle exception
 		}
 
-		while (!sorted) {
-
-			if (check()) {
-				System.out.println("Ready");
-				// Ready to carry out final merge sort
-
-				// sort();
-
-				sorted = true;
-			} else {
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			}
-
-		}
+		System.out.println("\nReady");
+		// Ready to carry out final merge sort
 
 	}
 

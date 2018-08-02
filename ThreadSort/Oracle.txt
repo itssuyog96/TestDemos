@@ -1,0 +1,18 @@
+Oracle;
+    ojdbc6.jar      For JDK 6
+    ojdbc14.jar     For JDK 1.4
+    ojdbc7.jar      For JDK 7
+    ojdbc8.jar      For JDK 8
+
+Driver Classname:
+    oracle.jdbc.OracleDriver
+
+Connection URL: [Oracle XE]
+    jdbc:oracle:thin:@SERVERNAME-IP:1521/xe
+
+Connection URL: [Oracle Standard Edition or Enterprise]
+    jdbc:oracle:thin:@SERVERNAME-IP:1521/xe
+
+Creentials: (obtain from IT Team)
+    Common Credentials for Sample DB:   hr/hr
+                                        scott/tiger

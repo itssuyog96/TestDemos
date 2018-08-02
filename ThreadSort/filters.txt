@@ -1,0 +1,13 @@
+Filter
+    An Interceptor for all your request!
+
+    To measure performance
+    For logging all operations
+    For authorization
+    To Response compression
+
+Filters: Just like servlets, filters too have init and destroy methods
+    And called only once in object lifecycle.
+    init()
+    doFilter()  For every request which is intercepted!
+    destroy()
