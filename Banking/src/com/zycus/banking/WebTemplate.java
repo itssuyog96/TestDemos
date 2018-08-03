@@ -2,7 +2,7 @@ package com.zycus.banking;
 
 public class WebTemplate {
 	
-	private static String part1 = "<!DOCTYPE html>\r\n" + 
+	private static String header = "<!DOCTYPE html>\r\n" + 
 			"<html lang=\"en\">\r\n" + 
 			"\r\n" + 
 			"<head>\r\n" + 
@@ -11,9 +11,7 @@ public class WebTemplate {
 			"    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n" + 
 			"    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\"\r\n" + 
 			"        crossorigin=\"anonymous\">\r\n" + 
-			"    <title>";
-	
-	private static String part2 = " | XYZ Bank</title>\r\n" + 
+			"    <title>%s | XYZ Bank</title>\r\n" + 
 			"</head>\r\n" + 
 			"\r\n" + 
 			"<body>\r\n" + 
@@ -36,7 +34,7 @@ public class WebTemplate {
 			"            <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n" + 
 			"                <ul class=\"navbar-nav mr-auto\">\r\n" + 
 			"                    <li class=\"nav-item active\">\r\n" + 
-			"                        <a class=\"nav-link\" href=\"../Banking/\">Home\r\n" + 
+			"                        <a class=\"nav-link\" href=\"/Banking/\">Home\r\n" + 
 			"                            <span class=\"sr-only\">(current)</span>\r\n" + 
 			"                        </a>\r\n" + 
 			"                    </li>\r\n" + 
@@ -70,7 +68,7 @@ public class WebTemplate {
 	
 	
 	public static String getHeaderFor(String title) {
-		return part1 + title + part2;
+		return String.format(header, title);
 	}
 	
 	public static String getFooter() {

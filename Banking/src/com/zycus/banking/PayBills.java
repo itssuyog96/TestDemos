@@ -28,6 +28,7 @@ public class PayBills extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String billType = request.getParameter("bill_type");
 		String elec_provider = request.getParameter("elec_provider");

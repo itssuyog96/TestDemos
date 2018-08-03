@@ -17,12 +17,12 @@
         }
 
         .error {
-        padding-left:25%;
+            padding-left: 25%;
             color: red;
         }
 
         .success {
-        padding-left:25%;
+            padding-left: 25%;
             color: green;
         }
     </style>
@@ -70,6 +70,14 @@
         <br/>
         <div class="row col-md-offset-2 col-md-10">
             <form id="account-form" action="new-account.do" class="form-inline col-md-12" method="POST">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="cust_id">Customer ID</label>
+                        <input type="text" name="cust_id" id="cust_id" />
+                        <button class="btn btn-default fetch-customer-btn">Fetch Customer</button>
+                    </div>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="form-group">
                         <label for="title" class="label-control">Title</label>
@@ -143,15 +151,45 @@
                 $('.success').css('display', 'block');
             },
             error: function (error) {
-                console.log(error); 
+                console.log(error);
                 error.responseText = JSON.parse(error.responseText);
-                console.log(error); 
+                console.log(error);
                 $('.error').html(error.responseText.message);
                 $('.error').css('display', 'block');
             }
         })
-
     })
+
+    $('.fetch-customer-btn').on('click', function (e) {
+        e.preventDefault();
+        $('.error').css('display', 'none');
+        $('.success').css('display', 'none');
+
+        $.ajax({
+            url: 'fetch-customer.do',
+            method: 'GET',
+            data: $('#account-form').serialize(),
+            success: function (data) {
+                $('#firstname').val = data.firstname;
+                $('#lastname').val = data.lastname;
+                $('#title').val = data.title;
+                $('#dob').val = data.dob;
+                $('.success').html(data.message);
+                $('.success').css('display', 'block');
+
+            },
+            error: function (error) {
+                console.log(error);
+                if(error.status == 404)
+                {
+                    $('.error').html(error.statusText);    
+                }
+                // $('.error').html(error.responseText.message);
+                $('.error').css('display', 'block');
+
+            }
+        })
+    });
 
 
 </script>

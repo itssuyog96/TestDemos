@@ -1,13 +1,15 @@
 package com.zycus.banking;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 /**
  * Servlet implementation class NewAccountServlet
@@ -21,7 +23,6 @@ public class NewAccountServlet extends HttpServlet {
      */
     public NewAccountServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,6 +35,7 @@ public class NewAccountServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 		String title = request.getParameter("title");		
@@ -41,29 +43,28 @@ public class NewAccountServlet extends HttpServlet {
 		String lastName = request.getParameter("lastname");
 		String dob = request.getParameter("dob");
 		
+		JSONObject obj = new JSONObject();
+		
 		if(title == null || firstName == null || lastName == null || dob == null || title.equals("") || firstName.equals("") || lastName.equals("") || dob.equals("")) {
-			response.sendError(500, "Invalid/Empty input");
+			response.addHeader("CONTENT-TYPE", "APPLICATION/JSON");
+			response.setStatus(400);
+			obj.put("message", "Invalid/Empty input!");
+			response.getWriter().append(obj.toJSONString());
+			
 			return;
 		}
 		
 		if(firstName.length() < 2 || lastName.length() < 2) {
-			response.sendRedirect("index.html");
+			response.addHeader("CONTENT-TYPE", "APPLICATION/JSON");
+			response.setStatus(400);
+			obj.put("message", "Name should contain equal to or more than 2 characters!");
+
+		}else {			
+			new CustomerDAO().create(new Customer(title, firstName, lastName, Date.valueOf(dob)));
+			obj.put("message", String.format("Hi %s. %s, your account creation is under process.", title, firstName));
+			response.addHeader("CONTENT-TYPE", "APPLICATION/JSON");
 		}
-				
-		//=============================================
-		//TODO: Start a thread to put data in database
-		//=============================================
-		
-		
-		PrintWriter out = response.getWriter();
-		
-		out.println(WebTemplate.getHeaderFor("New Account"));
-		out.println("<br/><span style=\"padding-left:10px;\"><strong>"+title+". "+firstName+", your account creation request is under process.</strong></span>");
-		out.println("Date of Birth: " + dob);
-		out.println(WebTemplate.getFooter());
-		
-		
-		
+		response.getWriter().append(obj.toJSONString());	
 	}
 
 }
