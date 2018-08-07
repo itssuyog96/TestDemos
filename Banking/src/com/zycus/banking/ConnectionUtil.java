@@ -6,7 +6,7 @@ public class ConnectionUtil {
 	
 	public static Connection getConnection() {
 		String driver = "org.apache.derby.jdbc.ClientDriver";
-		String url = "jdbc:derby://localhost:1527/sample";
+		String url = "jdbc:derby://localhost:1527/banking";
 		String user = "user";
 		String pass ="pass";
 		return getConnection(driver, url, user, pass);

@@ -11,8 +11,9 @@ import java.util.List;
 
 public class CustomerDAO{
 	
-	private static final String SQL_SELECT_ID="SELECT id, firstName, lastName, dob, title FROM customer";
-	private static final String SQL_INSERT="INSERT INTO CUSTOMER(id, firstName, lastName, dob, title) VALUES(?,?,?,?,?)";
+	private static final String SQL_SELECT_ID="SELECT id, title, firstName, lastName, dob FROM customer";
+	private static final String SQL_SELECT_UNREGISTERED="SELECT id, title, firstName, lastName, dob, REG_STATUS FROM customer WHERE REG_STATUS=FALSE";
+	private static final String SQL_INSERT="INSERT INTO CUSTOMER(id, firstName, lastName, dob, title, REG_STATUS) VALUES(?,?,?,?,?, FALSE)";
 
 	public void create(Customer customer) {
 		try(Connection con = ConnectionUtil.getConnection()){
@@ -38,7 +39,29 @@ public class CustomerDAO{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(6), rs.getDate(5));
+				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
+				customers.add(customer);
+			}
+			
+			return customers;
+			
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	
+	public List<Customer> findUnregistered() {
+		List<Customer> customers = new LinkedList<>();
+		try(Connection con = ConnectionUtil.getConnection()){
+			PreparedStatement ps = con.prepareStatement(SQL_SELECT_UNREGISTERED);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				Customer customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6));
 				customers.add(customer);
 			}
 			
@@ -52,16 +75,16 @@ public class CustomerDAO{
 		
 	}
 
-	public Customer findById(int id) {
+	public Customer findById(String id) {
 		
 		try(Connection con = ConnectionUtil.getConnection()){
-			PreparedStatement ps = con.prepareStatement("select id, firstName, lastName, dob, title from customer where id = ? ");
-			ps.setLong(1, id);
+			PreparedStatement ps = con.prepareStatement("select id, title, firstName, lastName, dob from customer where id = ? ");
+			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			Customer customer = null;
 			
 			if(rs.next()) {
-				customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(4), rs.getString(6), rs.getDate(5));
+				customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
 			}
 			
 			return customer;
@@ -70,6 +93,7 @@ public class CustomerDAO{
 			return null;
 		}
 	}
+	
 
 
 }

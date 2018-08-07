@@ -14,12 +14,8 @@ public class BranchSet extends Branch {
 	private static int ACC_NO_GENERATOR = 1101;
 	private static int BRANCH_CODE_GEN = 910;
 
-	public BranchSet() {
-		BRANCH_CODE_GEN++;
-	}
-	
-	public BranchSet(int branchCode) {
-		this.branchCode = branchCode;
+	public BranchSet(String bankCode, int branchCode) {
+		super(bankCode, branchCode);
 	}
 
 	@Override

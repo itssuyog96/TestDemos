@@ -14,18 +14,14 @@ public class BranchMap extends Branch {
 
 	private Map<Integer, Account> allAccounts = new HashMap<>();
 
-	public BranchMap() {
-		BRANCH_CODE_GEN++;
+	public BranchMap(String bankCode, int branchCode) {
+		super(bankCode, branchCode);
 	}
 
-	public BranchMap(int branchCode) {
-		this.branchCode = branchCode;
-	}
-	
 	@Override
 	public void openNewAccount(accountType accountType, float balance, Customer accountHolder) {
-		Account account = new Account(++ACC_NO_GENERATOR, accountHolder, accountType, balance);
-		account.setBranchCode(BRANCH_CODE_GEN);
+		Account account = new Account(0, accountHolder, accountType, balance);
+		account.setBranchCode(0);
 		allAccounts.put(account.getAccountNumber(), account);
 
 	}
@@ -49,7 +45,8 @@ public class BranchMap extends Branch {
 	}
 
 	public Set<Account> findByAccountHolder(String name) {
-		return allAccounts.values().stream().filter((x) -> x.getAccountHolder().getFirstName().equalsIgnoreCase(name.trim()))
+		return allAccounts.values().stream()
+				.filter((x) -> x.getAccountHolder().getFirstName().equalsIgnoreCase(name.trim()))
 				.collect(Collectors.toSet());
 	}
 

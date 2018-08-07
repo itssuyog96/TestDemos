@@ -9,11 +9,12 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private Date dob;
+	private boolean REG_STATUS = false;
 	public Customer(String title, String firstName, String lastName, Date dob) {
 		super();
 		this.title = title;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstName = firstName.toUpperCase();
+		this.lastName = lastName.toUpperCase();
 		this.dob = dob;
 		this.setId(Hash.generateHash(String.valueOf(System.currentTimeMillis())));
 	}
@@ -25,6 +26,17 @@ public class Customer {
 		this.dob = dob;
 		this.id = id;
 	}
+	
+	public Customer(String id, String title, String firstName, String lastName, Date dob, boolean REG_STATUS) {
+		super();
+		this.title = title;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dob = dob;
+		this.id = id;
+		this.REG_STATUS = REG_STATUS;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -54,6 +66,10 @@ public class Customer {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public boolean getRegStatus() {
+		return this.REG_STATUS;
 	}
 	
 	

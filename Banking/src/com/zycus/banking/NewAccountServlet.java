@@ -60,6 +60,7 @@ public class NewAccountServlet extends HttpServlet {
 			obj.put("message", "Name should contain equal to or more than 2 characters!");
 
 		}else {			
+			//Writing to database
 			new CustomerDAO().create(new Customer(title, firstName, lastName, Date.valueOf(dob)));
 			obj.put("message", String.format("Hi %s. %s, your account creation is under process.", title, firstName));
 			response.addHeader("CONTENT-TYPE", "APPLICATION/JSON");
