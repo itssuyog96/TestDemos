@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+ <style>
+ body
+{
+background-size: 1500px 1500px;
+background-repeat:no-repeat;
+background-image:url("images/img.jpg");
+ margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+div{
+ 
+ margin-left:400px;
+ margin-right:400px;
+ 
+ border-style: solid;
+ align:centre;
+ }
+input[type=text] {
+	align:centre;
+    width: 230px;
+    box-sizing: border-box;
+    
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+#electric_select{
+	display: none;
+}
+#phone_select{
+	display: none;
+} 
+form{
+background-color:powderblue;}
+ </style>
+</head>
+<body>
+
+<h1 style="background-color:powderblue;"  input align="center"  >Bank Forms</h1>
+<br><br><br><br><br><br>
+<div>
+<form input align="center" action="ADDAcc.do" method="post" >
+<br><br><br><br><br><br>
+
+
+<input type="radio" name="title" id="ele_radio">Electric Bill
+  <input type="radio" name="title" id="phone_radio">Phone Bill
+  <select name="Electric_Bill" id="electric_select">
+  	<option value="SELECT">SELECT</option>
+    <option value="MSEB">MSEB</option>
+    <option value="TATA">TATA</option>
+    <option value="RELIANCE">RELIANCE</option>
+      </select>
+
+
+  
+  <select name="Phone_Bill" id="phone_select">
+  	<option value="SELECT">SELECT</option>
+    <option value="MTNL">MTNL</option>
+    <option value="JIO">JIO</option>
+    <option value="AIRTEL">AIRTEL</option>
+    <option value="VODAFONE">VODAFONE</option>
+    <option value="IDEA">IDEA</option>
+  </select>
+  
+  
+  
+  <br><br><br><br>
+  <input type="number" name="Amount" value="Amount" min="500">
+  <br><br>
+  <input type="submit" value="Submit" width="48" height="48">
+  <br><br><br><br><br><br>
+</form>
+</div>
+<script>
+
+var eleRadio = document.getElementById("ele_radio");
+var phoneRadio = document.getElementById("phone_radio");
+
+eleRadio.checked = false;
+phoneRadio.checked = false;
+
+var eleSelect = document.getElementById("electric_select");
+var phoneSelect = document.getElementById("phone_select");
+
+eleRadio.addEventListener("click", function(){
+	if (eleRadio.checked)
+	{
+		eleSelect.style.display = "block";
+		phoneSelect.style.display = "none";
+	}
+}, false);
+
+phoneRadio.addEventListener("click", function(){
+	eleSelect.style.display = "none";
+	phoneSelect.style.display = "block";
+}, false);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Didact+Gothic"
+	rel="stylesheet" />
+<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<meta charset="ISO-8859-1">
+<meta charset="ISO-8859-1">
+<style type="text/css">
+
+
+form{
+border-style: solid;
+background-color:grey;
+padding-left: 100px;
+padding-right: 80px;
+}
+ div{
+ 
+ margin-left:400px;
+ margin-right:400px;
+ 
+ 
+ align:centre;
+ }
+ #sub
+  {
+  align:centre;
+  padding-left:20px;
+  padding-right:20px;
+  padding-top:20px;
+  padding-bottom:20px;
+  
+ }
+ body
+{
+background-size: 2000px 2000px;
+background-repeat:no-repeat;
+background-image:url("images/img.jpg");
+ margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+}
+input[type=text] {
+	align:centre;
+    width: 230px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+    align:centre;
+}
+
+h2 {
+    font-weight: bold;
+}
+</style>
+
+<script type="text/javascript">
+         
+            function myFunction() {
+            	var password = $("#pass").val();
+                var confirmPassword = $("#pass1").val();
+
+                if (password != confirmPassword)
+                	alert("Password Does not match")
+                
+            }
+        
+      </script>
+</head>
+<body>
+
+<h1 style="background-color:grey;" align="center"  >LOGIN FORM</h1>
+
+<div id="menu">
+<br><br><br>
+<form align="center" action="AccountCreate.do" method="post">
+<br><br><br>
+  
+  <h2 align="center">Account Creation</h2>
+  <br><br>
+  <input type="number" name="balance" placeholder="min balance" min="500">
+  <br><br>
+ 
+  <input type="password" name="password"   id="pass" placeholder="Enter Password">
+  <br><br>
+  <input type="password" name="password1" id="pass1" onkeyup="myFunction()" placeholder="Confirm Password">
+  <br><br>
+  <input type="radio" name="AccoType" value="SAVINGS" >SAVINGS
+  <input type="radio" name="AccoType" vlaue="CURRENT">CURRENT
+  
+  
+  <br><br>
+  
+ 
+  <br><br><br><br>
+  <input id="sub" align="center" type="submit" value="Submit" width="48" height="48">
+  <br><br>
+</form> 
+</div>
+
+
+</body>
+</html>
