@@ -1,7 +1,15 @@
-<%@page import="com.zycus.banking.BranchDAO"%>
-<%@page import="com.zycus.banking.util.Branch"%>
-<%@page import="com.zycus.banking.BankDAO"%>
-<%@page import="com.zycus.banking.util.Bank"%>
+
+<%@page import="com.zycus.banking.customer.CustomerDAO"%>
+<%@page import="com.zycus.banking.account.accountType"%>
+<%@page import="java.sql.Date"%>
+<%@page import="com.zycus.banking.customer.Customer"%>
+<%@page import="com.zycus.banking.branch.BranchMap"%>
+<%@page import="com.zycus.banking.account.Account"%>
+<%@page import="com.zycus.banking.account.AccountDAO"%>
+<%@page import="com.zycus.banking.branch.BranchDAO"%>
+<%@page import="com.zycus.banking.branch.Branch"%>
+<%@page import="com.zycus.banking.bank.BankDAO"%>
+<%@page import="com.zycus.banking.bank.Bank"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -75,7 +83,7 @@
         <span class="error"></span>
         <span class="success"></span>
         <br/>
-        <form id="account-form" action="create-account.do" class="form-inline col-md-12" method="POST">
+        <form id="account-form" action="create-account.jsp" class="form-inline col-md-12" method="GET">
         <div class="row col-md-offset-2 col-md-10">
                 <div class="row">
                     <div class="form-group">
@@ -83,16 +91,27 @@
                         <input type="text" name="cust_id" id="cust_id" 
                         
                         <%
-                        	boolean origin = Boolean.parseBoolean(request.getParameter("origin"));
+                        	String originStr = request.getParameter("origin");
+                        	boolean origin = Boolean.parseBoolean(originStr);
                         		
                         	if(!origin){
 	                        	String customerId = request.getParameter("cust_id");
 	                        	if(customerId != null){
 	                        		out.println("value=\""+customerId+"\"");
 	                        	}                        		
-                        	} else if(origin) {
+                        	} else if(originStr != null && origin) {
                         		//Process account creation
-                        		
+                        		String bankCode = request.getParameter("bankCode");
+                        		int branchCode = Integer.parseInt(request.getParameter("branchCode"));
+                        		accountType accountTypex = accountType.valueOf(request.getParameter("accountType"));
+                        		String cust_id = request.getParameter("cust_id");
+                        		String title = request.getParameter("title");
+                        		String firstname = request.getParameter("firstname");
+                        		String lastname = request.getParameter("lastname");
+                        		Date dob = Date.valueOf(request.getParameter("dob"));
+                        		Customer customer = new Customer(cust_id, title, firstname, lastname, dob, true);
+                        		new AccountDAO().create((new BranchMap(bankCode, branchCode)).openNewAccount(accountTypex, 0f, customer));
+                        		new CustomerDAO().setRegistered(customer);
                         	}
                         %>
                         
@@ -164,6 +183,15 @@
                   
                 </select>
             </div>
+            
+            <div class="form-group col-md-3">
+                <label for="accountType">Select Branch</label>
+                <select class="select-control form-control" name="accountType" id="accountType">
+                  <option value="SAVINGS" selected>SAVINGS</option>
+                  <option value="CURRENT">CURRENT</option>
+                </select>
+            </div>
+            
                <input type="hidden" name="origin" value="true" />
 	        <div class="form-group">
 	            <button class="btn btn-success btn-md" id="account-form-submit" type="submit">Create Account</button>
@@ -203,35 +231,18 @@
 			data: {"bankCode":$('#bankCode').val()},
 			success: function(data){
 				data = JSON.parse(data);
+				$('#branchCode').html("");
 				$('#branchCode').append(data.data);
 			}
 		})	
-	}();
+	}
+	
+	getBranch();
+	
+	$('#bankCode').on('change', function(e){
+		getBranch();
+	})
 
-    $('#account-form-submit').on('click', function (e) {
-        e.preventDefault();
-        $('.error').css('display', 'none');
-        $('.success').css('display', 'none');
-
-        $.ajax({
-            url: "new-account.do",
-            method: "POST",
-            data: $("#account-form").serialize(),
-            success: function (data) {
-                console.log(data);
-                data = JSON.parse(data);
-                $('.success').html(data.message);
-                $('.success').css('display', 'block');
-            },
-            error: function (error) {
-                console.log(error);
-                error.responseText = JSON.parse(error.responseText);
-                console.log(error);
-                $('.error').html(error.responseText.message);
-                $('.error').css('display', 'block');
-            }
-        })
-    })
 
     $('.fetch-customer-btn').on('click', function (e) {
         e.preventDefault();

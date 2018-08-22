@@ -1,7 +1,3 @@
-<%@page import="java.util.List"%>
-<%@page import="com.zycus.banking.customer.Customer"%>
-<%@page import="com.zycus.banking.customer.CustomerDAO"%>
-<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -23,25 +19,16 @@
         }
 
         .error {
-            padding-left: 25%;
+        padding-left:25%;
             color: red;
         }
 
         .success {
-            padding-left: 25%;
+        padding-left:25%;
             color: green;
         }
-        
-        .reg{        
-        	color: green;
-        }
-        
-        .unreg{
-        	color: red;
-        }
-        
     </style>
-    <title>Unregisterd Customers | XYZ Bank</title>
+    <title>Welcome | XYZ Bank</title>
 </head>
 
 <body>
@@ -83,46 +70,44 @@
         <span class="error"></span>
         <span class="success"></span>
         <br/>
-        <div class="row table-responsive">
-        <table class="table ">
-        	<thead>
-        		<tr>
-        			<th>Customer ID</th>
-        			<th>Title</th>
-        			<th>Firstname</th>
-        			<th>Lastname</th>
-        			<th>Date of Birth</th>
-        			<th>Registration Status</th>
-        			<th>Options</th>
-        		</tr>
-        	</thead>
-        	<tbody>
-        	
-           <%
-           
-           		List<Customer> customers = new CustomerDAO().findUnregistered();
-           		try{           			
-	        		for(Customer customer : customers){
-	        			if(customer == null)
-	        				break;
-	        			out.println("<tr>");
-	        			out.println("<td>"+ customer.getId() +"</td>");
-	        			out.println("<td>"+ customer.getTitle() +"</td>");
-	        			out.println("<td>"+ customer.getFirstName() +"</td>");
-	        			out.println("<td>"+ customer.getLastName() +"</td>");
-	        			out.println("<td>"+ customer.getDob() +"</td>");
-	        			out.println("<td class="+ (customer.getRegStatus()?"reg": "unreg") + "><strong>"+ (customer.getRegStatus()?"REGISTERED": "UNREGISTERED") +"</strong></td>");
-	        			out.println("<td>" + (customer.getRegStatus()?"<button class=\"btn btn-default\">View Customer</button>": "<a href=\"create-account.jsp?cust_id="+ customer.getId() +"\"><button class=\"btn btn-success\">Register</button></a>") + "</td>");
-	        			out.println("</tr>");
-	        		}
-           		}catch(NullPointerException e){
-           			out.println("<tr><td colspan=5>No unregistered customer found</td></tr>");
-           		}
-           	
-           %>
-        	</tbody>
-        </table> 
+        <div class="row col-md-offset-2 col-md-10">
+            <form id="account-form" action="new-account.do" class="form-inline col-md-12" method="POST">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="title" class="label-control">Title</label>
+                        <select name="title" id="title" class="form-control select-control select">
+                            <option value="Mr">Mr</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Dr">Dr</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="firstname" class="label-control">First Name</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" style="padding:10px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastname" class="label-control">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="dob" class="label-control">Date of Birth</label>
+                        <input type="text" name="dob" id="dob" placeholder="yyyy-mm-dd" class="form-control">
+                    </div>
+                    <hr/>
+                    <br/>
+                    <div class="form-group mb-2">
+                        <hr>
+                        <button class="btn btn-success btn-md" id="account-form-submit" type="submit">Create Account</button>
+                    </div>
+
+                </div>
+            </form>
+
         </div>
+
+
         <div class="row" style="margin-top:120px;"></div>
         <hr/>
         <div class="footer">
@@ -141,5 +126,36 @@
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+
+<script>
+
+    $('#account-form-submit').on('click', function (e) {
+        e.preventDefault();
+        $('.error').css('display', 'none');
+        $('.success').css('display', 'none');
+
+        $.ajax({
+            url: "new-account.do",
+            method: "POST",
+            data: $("#account-form").serialize(),
+            success: function (data) {
+                console.log(data);
+                data = JSON.parse(data);
+                $('.success').html(data.message);
+                $('.success').css('display', 'block');
+            },
+            error: function (error) {
+                console.log(error); 
+                error.responseText = JSON.parse(error.responseText);
+                console.log(error); 
+                $('.error').html(error.responseText.message);
+                $('.error').css('display', 'block');
+            }
+        })
+
+    })
+
+
+</script>
 
 </html>

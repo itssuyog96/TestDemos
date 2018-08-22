@@ -1,6 +1,6 @@
 package com.zycus.banking.service;
 
-import com.zycus.banking.util.Branch;
+import com.zycus.banking.branch.Branch;
 
 public interface TransactionInterface {
 	public boolean withdraw(Branch branch, int accountNumber, float amount);

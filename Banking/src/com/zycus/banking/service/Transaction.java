@@ -2,10 +2,10 @@ package com.zycus.banking.service;
 
 import static java.lang.System.err;
 
-import com.zycus.banking.util.Account;
-import com.zycus.banking.util.BranchMap;
-import com.zycus.banking.util.Branch;
-import com.zycus.banking.util.status;
+import com.zycus.banking.account.Account;
+import com.zycus.banking.account.status;
+import com.zycus.banking.branch.Branch;
+import com.zycus.banking.branch.BranchMap;
 
 public class Transaction implements TransactionInterface {
 	private static final float MIN_BALANCE = 1000;

@@ -1,10 +1,10 @@
-<%@page import="com.zycus.banking.BankDAO"%>
-<%@page import="com.zycus.banking.util.Bank"%>
-<%@page import="com.zycus.banking.util.Branch"%>
-<%@page import="com.zycus.banking.BranchDAO"%>
+<%@page import="com.zycus.banking.bank.BankDAO"%>
+<%@page import="com.zycus.banking.bank.Bank"%>
+<%@page import="com.zycus.banking.branch.Branch"%>
+<%@page import="com.zycus.banking.branch.BranchDAO"%>
 <%@page import="java.util.List"%>
-<%@page import="com.zycus.banking.Customer"%>
-<%@page import="com.zycus.banking.CustomerDAO"%>
+<%@page import="com.zycus.banking.customer.Customer"%>
+<%@page import="com.zycus.banking.customer.CustomerDAO"%>
 <%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
