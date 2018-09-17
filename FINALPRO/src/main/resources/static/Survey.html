@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+$(function(){
+	$("#Surveyform").submit(function(event){
+		event.preventDefault();
+		var SurveyObj= {
+				id:$("#id").val(),
+				name:$("#name").val(),
+				userID:$("#Userid").val(),
+				
+				
+		}
+		
+		var SurveyObjAsJSON=JSON.stringify(SurveyObj);
+		alert(SurveyObjAsJSON);
+		
+		$.ajax({
+			url:"/Survey/newSurvey",
+			type:"POST",
+			data:SurveyObjAsJSON,
+			contentType:"application/json",
+			success:function(response,status)
+			{
+				alert(response);
+			}
+		})
+	})
+})
+
+</script>
+<body>
+
+<form id="Surveyform">
+
+Enter id: <input id="id" /> <br/>
+Enter name: <input id="name" /> <br/>
+Enter USerid: <input id="Userid" /> <br/>
+<input type="submit" value="Add" /> 
+ 
+</form>
+
+</body>
+</html>
